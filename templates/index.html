@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OKX EMA Scanner</title>
+  <meta name="description" content="自動掃描 OKX USDT 永續合約的 1H / 4H EMA 均線糾纏與碰頭訊號。">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="/"><span class="brand-mark">E</span><span>EMA<span class="brand-light">SCANNER</span><small>OKX PUBLIC MARKET DATA</small></span></a>
+      <div class="top-right"><span class="live-dot"></span><span id="statusText">正在連線</span><button id="refreshBtn" class="refresh">↻ 更新</button></div>
+    </header>
+    <main>
+      <section class="hero">
+        <div><div class="eyebrow">MARKET SCANNER / V1</div><h1>找出均線收斂的<br><span>下一個觀察機會。</span></h1><p>掃描 OKX USDT 永續合約，以已收盤 K 線計算 EMA20、EMA50、EMA200。這是候選清單，不是交易指令。</p></div>
+        <div class="hero-stats"><div><span>掃描交易對</span><strong id="totalCount">—</strong></div><div><span>已完成</span><strong id="progressCount">—</strong></div><div><span>最後更新</span><strong id="lastUpdated">等待資料</strong></div></div>
+      </section>
+      <div id="errorBanner" class="notice hidden"></div>
+      <section class="summary-grid">
+        <article class="metric-card"><div class="metric-top"><span>1H 糾纏候選</span><span class="metric-icon">◉</span></div><strong id="oneCount">—</strong><small>EMA20 / 50 / 200</small></article>
+        <article class="metric-card"><div class="metric-top"><span>4H 糾纏候選</span><span class="metric-icon">◷</span></div><strong id="fourCount">—</strong><small>EMA20 / 50 / 200</small></article>
+        <article class="metric-card"><div class="metric-top"><span>1H + 4H 共振</span><span class="metric-icon">⌁</span></div><strong id="resonanceCount">—</strong><small>同時收斂或均線糾纏</small></article>
+      </section>
+      <section class="panel">
+        <div class="panel-heading"><div><div class="eyebrow">DISCOVERY</div><h2>掃描排行榜</h2></div><div class="controls"><input id="searchInput" type="search" placeholder="搜尋幣種，例如 BTC"><select id="timeframe"><option value="1H">1H 週期</option><option value="4H">4H 週期</option></select></div></div>
+        <div class="tabs" role="tablist"><button class="tab active" data-mode="cluster">均線糾纏</button><button class="tab" data-mode="meeting">即將碰頭</button><button class="tab" data-mode="converging">距離持續縮小</button><button class="tab" data-mode="resonance">雙週期共振</button></div>
+        <div class="table-wrap"><table><thead id="tableHead"></thead><tbody id="tableBody"><tr><td colspan="7" class="empty">正在等待第一次掃描。第一次可能需要幾分鐘。</td></tr></tbody></table></div>
+        <div class="table-foot"><span id="resultCount">0 筆結果</span><span>資料來源：OKX 公開 API · 非投資建議</span></div>
+      </section>
+      <section class="bottom-grid">
+        <article class="panel info-panel"><div class="eyebrow">HOW TO READ</div><h2>分數怎麼看？</h2><div class="legend-row"><span class="legend-dot green"></span><div><b>均線糾纏分數</b><p>EMA20／50／200 越靠近，分數越高。初始共振門檻為三條 EMA 最大最小差距不超過現價的 1%。</p></div></div><div class="legend-row"><span class="legend-dot blue"></span><div><b>碰頭狀態</b><p>觀察 EMA20 與 EMA50 的距離是否連續縮小。可能金叉／死叉是推算狀態，並非保證訊號。</p></div></div><div class="legend-row"><span class="legend-dot amber"></span><div><b>使用已收盤 K 線</b><p>避免未收盤 K 線導致訊號反覆變動；最新成交價格可能比指標計算價格更新。</p></div></div></article>
+        <article class="panel info-panel"><div class="eyebrow">SIGNAL DETAILS</div><h2>訊號不等於方向保證</h2><p class="body-copy">均線糾纏代表均線集中，不代表價格一定會突破。碰頭狀態也可能反覆改變。使用前請搭配價格結構、成交量與風險管理，不要只依排行榜進場。</p><a class="external" href="https://www.okx.com/trade-swap/btc-usdt-swap" target="_blank" rel="noopener">在 OKX 查看合約 ↗</a></article>
+      </section>
+      <footer><span>OKX EMA SCANNER</span><span>Built for market research · No trading keys required</span></footer>
+    </main>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
